@@ -156,7 +156,7 @@
         window.location.href = 'BankReconcile.html';
         return;
       case 'btnClear':             // reset the filter
-        var amt = $id('Amount_TextBox'); if (amt) amt.value = '5.00';
+        var amt = $id('Amount_TextBox'); if (amt) amt.value = '55,920.95';
         Voyager.toast('Filter cleared.');
         return;
       case 'btnRefresh':
