@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yardi Voyager</title>
+  <link rel="stylesheet" href="/css/voyager.css">
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/js/voyager.js"></script>
+</head>
+<body class="body" style="overflow:hidden">
+<div class="voy-shell" id="voyShell">
+
+  <!-- ============ top banner ============ -->
+  <div id="voyHeader">
+    <div class="voy-logo"><span class="vy">YARDI</span> <span class="vg">VOYAGER</span></div>
+    <div class="voy-navrow">
+      <input id="voySearch" type="text" placeholder="">
+      <div id="voyNav">
+        <a href="javascript:void(0)" id="navHome">Home</a>
+        <a href="javascript:void(0)" id="navHelp">Help</a>
+        <a href="javascript:void(0)" id="navSignout">Sign Out</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ body: sidebar + content ============ -->
+  <div class="voy-body">
+    <div id="sideBar">
+      <div class="collapse-tab" id="collapseTab" title="Collapse / expand menu">&#9664;</div>
+      <ul id="sideMenu">
+        <li><a class="module">Roles</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/Roles.aspx')">My Roles</a></li>
+            <li><a onclick="doMenuClick('../Pages/AddRole.aspx')">Add Role</a></li>
+            <li><a onclick="doMenuClick('../Pages/ReviewRoles.aspx')">Review Roles</a></li>
+          </ul></li>
+        <li><a class="module">Reports</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/FinancialReports.aspx')">Financial Reports</a></li>
+            <li><a onclick="doMenuClick('../Pages/OperationalReports.aspx')">Operational Reports</a></li>
+            <li><a onclick="doMenuClick('../Pages/CustomReports.aspx')">Custom Reports</a></li>
+          </ul></li>
+        <li><a class="module">Charges</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/PostCharges.aspx')">Post Charges</a></li>
+            <li><a onclick="doMenuClick('../Pages/ChargeBatch.aspx')">Charge Batch</a></li>
+            <li><a onclick="doMenuClick('../Pages/RecurringCharges.aspx')">Recurring Charges</a></li>
+          </ul></li>
+        <li><a class="module">Receivables</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/Receipts.aspx')">Enter Receipts</a></li>
+            <li><a onclick="doMenuClick('../Pages/ApplyReceipts.aspx')">Apply Receipts</a></li>
+            <li><a onclick="doMenuClick('../Pages/NSF.aspx')">NSF Reversal</a></li>
+            <li><a onclick="doMenuClick('../Pages/OpenCredits.aspx')">Open Credits</a></li>
+          </ul></li>
+        <li><a class="module">Payables</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/PayableRegister.aspx')">Payable Register</a></li>
+            <li><a onclick="doMenuClick('../Pages/QuickPay.aspx')">Quick Pay</a></li>
+            <li><a onclick="doMenuClick('../Pages/PrintChecks.aspx')">Print Checks</a></li>
+          </ul></li>
+        <li><a class="module">Mortgage</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/Loans.aspx')">Loans</a></li>
+            <li><a onclick="doMenuClick('../Pages/Amortization.aspx')">Amortization</a></li>
+            <li><a onclick="doMenuClick('../Pages/Escrow.aspx')">Escrow Analysis</a></li>
+          </ul></li>
+
+        <!-- ============ G/L (fully wired) ============ -->
+        <li><a class="module">G/L</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/CreateJournalBatch.aspx')">Create Journal Batch</a></li>
+            <li><a onclick="doMenuClick('../Pages/FindJournalBatches.aspx')">Find Journal Batches</a></li>
+            <li><a onclick="doMenuClick('../Pages/ReviewJournal.aspx')">Review Journal</a></li>
+            <li><a onclick="doMenuClick('../Pages/ReviewJournalDisplayTypes.aspx')">Review Journal Display Types</a></li>
+            <li><a onclick="doMenuClick('../Pages/AddJournalDisplayType.aspx')">Add Journal Display Type</a></li>
+            <li><a onclick="doMenuClick('../Pages/AddRecurringJournal.aspx')">Add Recurring Journal</a></li>
+            <li><a onclick="doMenuClick('../Pages/ReviewPostRecurringJE.aspx')">Review/Post Recurring JE</a></li>
+            <li><a onclick="doMenuClick('../Pages/PostTransfer.aspx')">Post Transfer</a></li>
+            <li><a onclick="doMenuClick('../Pages/GPRJournalEntry.aspx')">GPR Journal Entry</a></li>
+            <li><a onclick="doMenuClick('../Pages/DistributeJE.aspx')">Distribute JE</a></li>
+            <li><a onclick="doMenuClick('../Pages/ReverseJournals.aspx')">Reverse Journals</a></li>
+            <li><a onclick="doMenuClick('../Pages/ReviewEditGLBudget.aspx')">Review/Edit G/L Budget</a></li>
+            <li><a onclick="doMenuClick('../Pages/POAccrualJE.aspx')">PO Accrual JE</a></li>
+            <li class="has-sub"><a>End Period</a>
+              <ul class="flyout">
+                <li><a onclick="doMenuClick('../Pages/ClosePeriod.aspx')">Close Period</a></li>
+                <li><a onclick="doMenuClick('../Pages/ReopenPeriod.aspx')">Reopen Period</a></li>
+              </ul></li>
+            <li class="has-sub"><a>Banking</a>
+              <ul class="flyout">
+                <li class="has-sub"><a>Bank Functions</a>
+                  <ul class="flyout">
+                    <li class="active"><a onclick="doMenuClick('../Pages/BankRecFilter.aspx')">Bank Reconcile</a></li>
+                    <li><a onclick="doMenuClick('../Pages/BankRecAdjustment.aspx')">Bank Rec Adjustment</a></li>
+                    <li><a onclick="doMenuClick('../Pages/CheckBookMaintenance.aspx')">Check Book Maintenance</a></li>
+                    <li><a onclick="doMenuClick('../Pages/BankDepositMerge.aspx')">Bank Deposit Merge</a></li>
+                  </ul></li>
+                <li class="has-sub"><a>Bank Reports</a>
+                  <ul class="flyout">
+                    <li><a onclick="doMenuClick('../Pages/BankReconciliationReport.aspx')">Bank Reconciliation Report</a></li>
+                    <li><a onclick="doMenuClick('../Pages/CheckRegister.aspx')">Check Register</a></li>
+                  </ul></li>
+              </ul></li>
+            <li><a onclick="doMenuClick('../Pages/GLAllocation.aspx')">G/L Allocation</a></li>
+          </ul></li>
+
+        <li><a class="module">Residential</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/Tenants.aspx')">Tenants</a></li>
+            <li><a onclick="doMenuClick('../Pages/MoveIn.aspx')">Move In</a></li>
+            <li><a onclick="doMenuClick('../Pages/MoveOut.aspx')">Move Out</a></li>
+            <li><a onclick="doMenuClick('../Pages/LeaseRenewal.aspx')">Lease Renewal</a></li>
+          </ul></li>
+        <li><a class="module">Revenue Management</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/Pricing.aspx')">Pricing</a></li>
+            <li><a onclick="doMenuClick('../Pages/RenewalOffers.aspx')">Renewal Offers</a></li>
+          </ul></li>
+        <li><a class="module">YSR Correspondence</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/Notices.aspx')">Notices</a></li>
+            <li><a onclick="doMenuClick('../Pages/Letters.aspx')">Letters</a></li>
+          </ul></li>
+        <li><a class="module">Lease Administration</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/CommercialLeases.aspx')">Commercial Leases</a></li>
+            <li><a onclick="doMenuClick('../Pages/Clauses.aspx')">Clauses</a></li>
+            <li><a onclick="doMenuClick('../Pages/Recoveries.aspx')">Recoveries</a></li>
+          </ul></li>
+        <li><a class="module">Setup</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/Properties.aspx')">Properties</a></li>
+            <li><a onclick="doMenuClick('../Pages/ChargeCodes.aspx')">Charge Codes</a></li>
+            <li><a onclick="doMenuClick('../Pages/GLAccounts.aspx')">G/L Accounts</a></li>
+            <li><a onclick="doMenuClick('../Pages/Banks.aspx')">Banks</a></li>
+          </ul></li>
+        <li><a class="module">Administration</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/Users.aspx')">Users</a></li>
+            <li><a onclick="doMenuClick('../Pages/MenuSets.aspx')">Menu Sets</a></li>
+            <li><a onclick="doMenuClick('../Pages/AuditTrail.aspx')">Audit Trail</a></li>
+          </ul></li>
+        <li><a class="module">Purchasing</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/Requisitions.aspx')">Requisitions</a></li>
+            <li><a onclick="doMenuClick('../Pages/PurchaseOrders.aspx')">Purchase Orders</a></li>
+            <li><a onclick="doMenuClick('../Pages/Receiving.aspx')">Receiving</a></li>
+          </ul></li>
+        <li><a class="module">Service Contract</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/Contracts.aspx')">Contracts</a></li>
+            <li><a onclick="doMenuClick('../Pages/Vendors.aspx')">Vendors</a></li>
+          </ul></li>
+        <li><a class="module">Work Order</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/NewWorkOrder.aspx')">New Work Order</a></li>
+            <li><a onclick="doMenuClick('../Pages/MyWorkOrders.aspx')">My Work Orders</a></li>
+          </ul></li>
+        <li><a class="module">Unit Asset</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/FixedAssets.aspx')">Fixed Assets</a></li>
+            <li><a onclick="doMenuClick('../Pages/Depreciation.aspx')">Depreciation</a></li>
+          </ul></li>
+        <li><a class="module">Performance</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/PerformanceReturns.aspx')">Performance Returns</a></li>
+            <li><a onclick="doMenuClick('../Pages/InvestmentManager.aspx')">Investment Manager</a></li>
+          </ul></li>
+        <li><a class="module">New York</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/NYRegistration.aspx')">NY Registration</a></li>
+            <li><a onclick="doMenuClick('../Pages/DHCR.aspx')">DHCR</a></li>
+          </ul></li>
+        <li><a class="module">Interfaces</a>
+          <ul class="flyout">
+            <li><a onclick="doMenuClick('../Pages/Import.aspx')">Import</a></li>
+            <li><a onclick="doMenuClick('../Pages/Export.aspx')">Export</a></li>
+            <li><a onclick="doMenuClick('../Pages/BankInterface.aspx')">Bank Interface</a></li>
+          </ul></li>
+      </ul>
+    </div>
+
+    <div class="voy-content">
+      <iframe id="mainframe" name="mainframe" src="iData_quickMenu.html" title="Yardi Voyager"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    document.getElementById('collapseTab').addEventListener('click', function () {
+      document.getElementById('voyShell').classList.toggle('side-collapsed');
+      this.innerHTML = document.getElementById('voyShell').classList.contains('side-collapsed') ? '▶' : '◀';
+    });
+    document.getElementById('navHome').addEventListener('click', function () {
+      document.getElementById('mainframe').src = 'iData_quickMenu.html';
+    });
+    document.getElementById('navHelp').addEventListener('click', function () { Voyager.toast('Yardi Voyager Help — not available in this demo.'); });
+    document.getElementById('navSignout').addEventListener('click', function () { window.top.location.href = 'loginoidc.html'; });
+    // close any open click-state flyouts when clicking elsewhere
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('#sideMenu')) {
+        document.querySelectorAll('#sideMenu .open').forEach(function (n) { n.classList.remove('open'); });
+      }
+    });
+  })();
+</script>
+</body>
+</html>

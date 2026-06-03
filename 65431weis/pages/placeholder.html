@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Yardi Voyager</title>
+  <link rel="stylesheet" href="/css/voyager.css">
+</head>
+<body class="body" style="overflow:auto">
+  <div class="Tab">
+    <table class="TitleBar" cellspacing="1" cellpadding="0" style="width:100%;border-collapse:collapse;">
+      <tbody><tr><td class="TitleBar" nowrap="true"><span id="phTitle" style="display:inline-block;vertical-align:top;">Yardi Voyager</span></td></tr></tbody>
+    </table>
+  </div>
+  <div style="padding:40px;font-family:Verdana,Tahoma,sans-serif;font-size:12px;color:#33414f;">
+    <p style="font-size:14px;font-weight:bold;color:#1c3f6e;" id="phHead">Screen not available</p>
+    <p>This screen is not part of the Yardi Voyager demo clone.</p>
+    <p>The fully implemented workflow in this demo is:<br>
+       <b>G/L &#9656; Banking &#9656; Bank Functions &#9656; Bank Reconcile</b> &nbsp;(from the side menu).</p>
+  </div>
+  <script>
+    (function(){
+      var m=/[?&]t=([^&]+)/.exec(location.search);
+      var t=m?decodeURIComponent(m[1]).replace(/([a-z])([A-Z])/g,'$1 $2'):'Yardi Voyager';
+      document.getElementById('phTitle').textContent=t;
+      document.getElementById('phHead').textContent=t+' — not available';
+      document.title=t;
+    })();
+  </script>
+</body>
+</html>

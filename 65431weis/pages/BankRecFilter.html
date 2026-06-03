@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Bank Reconciliation</title>
+  <link rel="stylesheet" href="/vendor/jquery-ui/jquery-ui.min.css">
+  <link rel="stylesheet" href="/css/voyager.css">
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/jquery-ui/jquery-ui.min.js"></script>
+  <script src="/js/voyager.js"></script>
+</head>
+<body id="Body1" class="body" style="overflow:auto" onload="AutoSizeWindow();nameWindow('Bank Reconciliation');">
+  <form method="post" action="./BankRecFilter.aspx?sMenuSet=iData" id="form1" onsubmit="return false;">
+    <div class="aspNetHidden">
+      <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+      <input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+      <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="">
+    </div>
+
+    <div class="Tab">
+      <table class="TitleBar" cellspacing="1" cellpadding="0" style="width:100%;border-collapse:collapse;">
+        <tbody><tr>
+          <td class="TitleBar" nowrap="true"><span style="height:auto;display:inline-block;vertical-align:top;">Bank Reconciliation</span></td>
+        </tr></tbody>
+      </table>
+    </div>
+
+    <a id="Bank_LookupLink" tabindex="-1" class="Def"
+       href="JAVASCRIPT:Lookup2('YSI.Common','YSI.Common.Lookups.ysiBankLookup','Bank_LookupCode','Bank_Description','False')"
+       style="font-family:Verdana;font-size:8pt;width:155px;position:absolute;top:40px;left:10px;display:inline-block;">Bank</a>
+    <input isautocomplete="false" lookupclass="YSI.Common#YSI.Common.Lookups.ysiBankLookup"
+       name="Bank:LookupCode" id="Bank_LookupCode" class="Req ui-autocomplete-input" ischanged="false"
+       mandatory="true" multiselect="false" spellcheck="false" value="432-oper" type="text" islookup="True"
+       onchange="__doPostBack('Bank$LookupCode','YSI.Common^YSI.Common.Lookups.ysiBankLookup')"
+       style="display:inline-block;font-family:Verdana;font-size:8pt;width:120px;position:absolute;top:40px;left:165px;"
+       autocomplete="off">
+    <span id="Bank_Description" class="Inp" style="font-family:Verdana;font-size:8pt;left:295px;position:absolute;top:40px;display:inline-block;vertical-align:top;border:none;background:transparent;">Dakota Meadows</span>
+
+    <div id="divRec" style="position:absolute;left:10px;top:60px">
+      <span id="YsiLabel1_Label" style="height:18px;width:150px;text-align:left;left:0px;top:0px;position:absolute;display:inline-block;vertical-align:top;">GL Cutoff Date</span>
+      <input name="CloseDay:TextBox" type="text" value="05/31/2026" id="CloseDay_TextBox" class="Req hasDatepicker"
+             ischanged="false" mandatory="true" isday="true"
+             style="width:120px;left:155px;top:0px;position:absolute;z-index:9998;">
+      <img onmouseover="Hand(this)" onclick="JavaScript:show_calendar('CloseDay_TextBox')"
+           src="/65431weis/IMAGES/show_calendar.gif" style="left:278px;top:2px;position:absolute;">
+
+      <span id="YsiLabel2_Label" title="Ending Bal per Bank Stmt" style="height:18px;width:150px;text-align:left;left:0px;top:20px;position:absolute;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;display:inline-block;vertical-align:top;">Ending Bal per Bank Stmt</span>
+      <input name="Amount:TextBox" type="text" value="5.00" id="Amount_TextBox" class="Req" ischanged="false" mandatory="true"
+             style="width:120px;left:155px;top:20px;position:absolute;">
+    </div>
+
+    <button id="btnSubmit_Button" language="javascript" onmouseover="Hand(this)"
+            onclick="if (FT_FinalTest()) { __doPostBack('btnSubmit','') }"
+            style="height:22px;width:75px;z-index:1000;left:165px;top:110px;position:absolute;" tabindex="0" accesskey="s"
+            onmouseenter="className='Highlight';Hand(this)" onmouseleave="className=''" onmousedown="className='Clicked'" onmouseup="className='Highlight'"><u>S</u>ubmit</button>
+    <button id="btnClear_Button" language="javascript" onmouseover="Hand(this)" onclick="__doPostBack('btnClear','')"
+            style="height:22px;width:75px;z-index:1000;left:250px;top:110px;position:absolute;" tabindex="0"
+            onmouseenter="className='Highlight';Hand(this)" onmouseleave="className=''" onmousedown="className='Clicked'" onmouseup="className='Highlight'">Clear</button>
+    <button id="btnHelp_Button" language="javascript" onmouseover="Hand(this)"
+            onclick="JavaScript:FilterHelp4Aspx('voyagerBankReconciliation')"
+            style="height:22px;width:75px;z-index:1000;left:335px;top:110px;position:absolute;" tabindex="0" accesskey="h"
+            onmouseenter="className='Highlight';Hand(this)" onmouseleave="className=''" onmousedown="className='Clicked'" onmouseup="className='Highlight'"><u>H</u>elp</button>
+
+    <div id="DivReport" style="left:10px;position:absolute;top:190px;" ms_positioning="GridLayout"></div>
+    <input name="WEBSHARENAME" type="hidden" id="WEBSHARENAME" value="/65431weis">
+  </form>
+</body>
+</html>

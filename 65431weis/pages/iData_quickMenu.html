@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Yardi Voyager</title>
+  <link rel="stylesheet" href="/css/voyager.css">
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/js/voyager.js"></script>
+</head>
+<body id="Body1" class="body" style="overflow:auto" leftmargin="0" topmargin="0"
+      onload="nameWindow('Yardi Voyager');">
+  <form method="post" action="./iData_quickMenu.aspx" id="Form1" onsubmit="return false;">
+    <div class="aspNetHidden">
+      <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="">
+    </div>
+
+    <div class="quickmenu_identifier">
+      <table cellpadding="1" cellspacing="1" width="100%"><tbody><tr>
+        <td class="qmtitle" nowrap>&nbsp;&nbsp;Please select your Yardi Voyager Internet application:</td>
+        <td align="right" class="qmdb" nowrap style="font-weight:bold" id="dbcaption">DB Caption: LIVE</td>
+        <td align="right" class="qmdb" nowrap style="font-weight:bold">&nbsp;&nbsp;</td>
+      </tr></tbody></table>
+    </div>
+
+    <div class="qmwrap" style="padding:20px;margin-top:30px">
+      <table cellpadding="10" cellspacing="1" border="0" style="margin-top:10px;margin-left:5px"><tbody>
+        <tr valign="top">
+          <td style="padding-left:10px;padding-right:10px;border-bottom:dashed 1px #bbbbbb;border-right:dashed 1px #bbbbbb">
+            <a href="JavaScript:goApp('Comm60US')"><img src="../images/qm60_commercial.jpg" border="0" height="50" width="217"></a>
+          </td>
+          <td style="padding-left:10px;padding-right:10px;border-right:dashed 1px #bbbbbb;border-bottom:dashed 1px #bbbbbb"><center>
+            <img src="../images/qm60_residential.jpg" height="50" width="217"><br>
+            <select style="width:180px;margin-top:0" name="chooseApp" onchange="goApp(this.value)">
+              <option>Please Select View</option>
+              <option value="dash">Community Manager</option>
+              <option value="lease">Leasing Consultant</option>
+              <option value="site">Residential Manager</option>
+              <option value="fin">Financial Manager</option>
+              <option value="nyc">New York Manager</option>
+            </select>
+          </center></td>
+          <td style="padding-left:10px;padding-right:10px;border-right:dashed 1px #bbbbbb;border-bottom:dashed 1px #bbbbbb"><center>
+            <img src="../images/qm60_senior.jpg" height="50" width="217"><br>
+            <select style="width:180px;margin-top:0" name="chooseApp" onchange="goApp(this.value)">
+              <option>Please Select View</option>
+              <option value="Senior Housing Community">Community Manager</option>
+              <option value="Senior Housing Care">Care Manager</option>
+              <option value="Senior Housing Marketing">Marketing Manager</option>
+              <option value="Senior Housing Admin">Setup and Admin</option>
+            </select>
+          </center></td>
+        </tr>
+        <tr>
+          <td style="padding-left:10px;padding-right:10px;border-bottom:dashed 1px #bbbbbb;border-right:dashed 1px #bbbbbb">
+            <a href="JavaScript:goApp('iData_int')"><img src="../images/qm60_international.jpg" border="0" height="50" width="217"></a>
+          </td>
+          <td style="padding-left:10px;padding-right:10px;border-bottom:dashed 1px #bbbbbb;border-right:dashed 1px #bbbbbb">
+            <a href="JavaScript:goApp('iAffordable')"><img src="../images/qm60_affordable.jpg" border="0" height="50" width="217" style="margin-top:5px"></a>
+          </td>
+          <td style="padding-left:10px;padding-right:10px;border-bottom:dashed 1px #bbbbbb;border-right:dashed 1px #bbbbbb">
+            <a href="JavaScript:goApp('iPHA')"><img src="../images/qm60_ipha.jpg" border="0" height="50" width="217"></a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-left:10px;padding-right:10px;border-right:dashed 1px #bbbbbb;border-bottom:dashed 1px #bbbbbb"><center>
+            <img src="../images/qm60_portfolio.jpg" height="50" width="217"><br>
+            <select style="width:180px;margin-top:0" name="chooseApp" onchange="goApp(this.value)">
+              <option>Please Select View</option>
+              <option value="AdvancedAccounting">Advanced Accounting</option>
+              <option value="portfolio">Investment Dashboard</option>
+              <option value="portfolio2">Investment Manager</option>
+              <option value="Performance">Performance Returns Manager</option>
+              <option value="InvestorCRM">Investor CRM</option>
+            </select>
+          </center></td>
+          <td style="padding-left:10px;padding-right:10px;border-bottom:dashed 1px #bbbbbb;border-right:dashed 1px #bbbbbb">
+            <a href="JavaScript:goApp('forecasting')"><img src="../images/qm60_realdcf.jpg" border="0" height="50" width="217"></a>
+          </td>
+          <td style="padding-left:10px;padding-right:10px;border-right:dashed 1px #bbbbbb;border-bottom:dashed 1px #bbbbbb"><center>
+            <img src="../images/qm60_budget.jpg" height="50" width="217"><br>
+            <select style="width:180px;margin-top:0" name="chooseApp" onchange="goApp(this.value)">
+              <option>Please Select View</option>
+              <option value="iBudget7">Advanced Budgeting</option>
+              <option value="iBudget6">Budgeting &amp; Forecasting</option>
+            </select>
+          </center></td>
+        </tr>
+        <tr>
+          <td style="padding-left:10px;padding-right:10px;border-bottom:dashed 1px #bbbbbb;border-right:dashed 1px #bbbbbb">
+            <a href="JavaScript:goApp('assoc')"><img src="../images/qm6006_condo_coop_hoa.jpg" border="0" height="50" width="217"></a>
+          </td>
+          <td style="padding-left:10px;padding-right:10px;border-bottom:dashed 1px #bbbbbb;border-right:dashed 1px #bbbbbb">
+            <a href="JavaScript:goApp('iCMW')"><img src="../images/qm60_construction.jpg" border="0" height="50" width="217"></a>
+          </td>
+          <td style="padding-left:10px;padding-right:10px;border-right:dashed 1px #bbbbbb;border-bottom:dashed 1px #bbbbbb"><center>
+            <img src="../images/qm70_payscan.jpg" height="50" width="217"><br>
+            <select style="width:180px;margin-top:0" name="chooseApp" onchange="goApp(this.value)">
+              <option>Please Select View</option>
+              <option value="PayScanFinanceManager">PAYscan Finance Manager</option>
+              <option value="PayScanDataEntry">PAYscan Data Entry</option>
+              <option value="PayScanAdmin">PAYscan Administration</option>
+            </select>
+          </center></td>
+        </tr>
+        <tr>
+          <td style="padding-left:10px;padding-right:10px;border-bottom:dashed 1px #bbbbbb;border-right:dashed 1px #bbbbbb">
+            <a href="JavaScript:goApp('SFHomes')"><img src="../images/qm60_SFHome.jpg" border="0" height="50" width="217"></a>
+          </td>
+          <td style="padding-left:10px;padding-right:10px;border-right:dashed 1px #bbbbbb;border-bottom:dashed 1px #bbbbbb"><center>
+            <img src="../images/qm708_facilities.jpg" border="0" height="50" width="217"><br>
+            <select style="width:180px;margin-top:0" name="chooseApp" onchange="goApp(this.value)">
+              <option>Please Select View</option>
+              <option value="BasicMaintenance">Basic Maintenance</option>
+              <option value="FixedAsset">Fixed Asset</option>
+              <option value="FixedAssetInternational">Fixed Asset International</option>
+              <option value="InventoryControl">Inventory Control</option>
+              <option value="ICFA">Inventory Control/Fixed Asset</option>
+              <option value="AdvancedMaintenance">Advanced Maintenance</option>
+              <option value="Inspections">Inspections</option>
+            </select>
+          </center></td>
+          <td style="padding-left:10px;padding-right:10px;border-right:dashed 1px #bbbbbb;border-bottom:dashed 1px #bbbbbb"><center>
+            <a href="JavaScript:goApp('crmagent')"><img src="../images/crm.gif" height="50" width="217"></a>
+          </center></td>
+        </tr>
+        <tr>
+          <td style="padding-left:10px;padding-right:10px;border-right:dashed 1px #bbbbbb;border-bottom:dashed 1px #bbbbbb"><center>
+            <a href="JavaScript:goApp('StudentHousing')"><img src="../images/qm708_student.jpg" border="0" height="50" width="217"></a>
+          </center></td>
+          <td style="padding-left:10px;padding-right:10px;border-bottom:dashed 1px #bbbbbb;border-right:dashed 1px #bbbbbb">
+            <a href="JavaScript:goApp('Military')"><img src="../images/qm708_Military.jpg" border="0" height="50" width="217"></a>
+          </td>
+          <td style="padding-left:10px;padding-right:10px;border-right:dashed 1px #bbbbbb;border-bottom:dashed 1px #bbbbbb"><center>
+            <a href="JavaScript:goApp('admin')"><img src="../images/qm60_sys_admin.jpg" border="0" height="50" width="217"></a>
+          </center></td>
+        </tr>
+      </tbody></table>
+    </div>
+    <input name="DBNAME:TextBox" type="hidden" value="DB Caption: LIVE" id="DBNAME_TextBox">
+  </form>
+  <div class="voy-footer">© 2026 Yardi Systems, Inc. All Rights Reserved.</div>
+</body>
+</html>

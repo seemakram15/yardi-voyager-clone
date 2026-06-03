@@ -1,0 +1,111 @@
+/* =====================================================================
+   YardiOne identity server — PARAMARK login + dashboard
+   (Bootstrap 5 based, matching the provided DOM/screens)
+   ===================================================================== */
+:root{ --yo-blue:#0072ce; --yo-blue-dk:#005bb0; }
+
+/* Font Awesome Free has no Light(fal) or bare-fa style — map them to solid so every icon renders */
+.fa,.fa-light,.fal{font-family:"Font Awesome 6 Free"!important;font-weight:900!important;}
+.far,.fa-regular{font-family:"Font Awesome 6 Free"!important;font-weight:400!important;}
+
+body{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#202020;}
+
+/* ---------------- login ---------------- */
+.main-content{min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.logo-container{width:100%;max-width:460px;margin:0 auto;padding:20px;}
+.logo img{max-width:230px;height:auto;}
+.btn-primary,.btn-login{
+  background:var(--yo-blue);border-color:var(--yo-blue);
+}
+.btn-primary:hover,.btn-login:hover{background:var(--yo-blue-dk);border-color:var(--yo-blue-dk);}
+.btn-block{display:block;width:100%;}
+.btn-shadow{box-shadow:0 6px 16px rgba(0,114,206,.35);}
+#btn-passkey-login,.btn-login{
+  border-radius:40px;padding:13px 0;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+}
+.or-holder{position:relative;margin:6px 0 22px;}
+.or-holder:before{content:"";position:absolute;top:50%;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,#bcd6ef,transparent);}
+.or-holder label{position:relative;background:#fff;padding:0 14px;color:#7a8a99;font-size:13px;}
+.login-form label{font-size:12px;color:#5b6b7a;}
+.input-withicon{position:relative;}
+.input-withicon .input-icon{position:absolute;left:16px;top:50%;transform:translateY(20%);color:#5b6b7a;}
+.input-withicon .form-control{
+  background:#eef4fb;border:1px solid #dbe6f2;border-radius:40px;
+  padding:14px 20px 14px 44px;height:auto;font-size:15px;
+}
+.input-withicon .form-control:focus{box-shadow:0 0 0 .2rem rgba(0,114,206,.18);border-color:#9ec3ea;}
+.input-pass-icon{position:absolute;right:18px;top:50%;transform:translateY(20%);cursor:pointer;color:#5b6b7a;}
+.floating-label label{margin-bottom:2px;display:block;font-weight:600;}
+.text-dark{color:#202020!important;}
+#lnkForgotPassword{text-decoration:underline;}
+
+/* ---------------- dashboard ---------------- */
+.banner-overlay{background:#f3f6f9;}
+.d-flex.banner-flex{display:flex;}
+body.banner-overlay>.d-flex{min-height:100vh;}
+
+.sidebar{
+  width:260px;min-width:260px;background:#ffffff;border-right:1px solid #e4e9ef;
+  display:flex;flex-direction:column;padding:18px 20px;min-height:100vh;position:relative;
+}
+.sidebar .logo img{max-width:170px;}
+.btn-toggle-close{position:absolute;top:14px;right:10px;padding:2px 6px;}
+.profile-info-block .user-icon{width:74px;height:74px;object-fit:cover;border:3px solid #e8eef4;}
+.user-name{font-size:18px;font-weight:600;margin:0;}
+.profile-dropdown{font-size:14px;}
+#main-menu,.setting-menu{margin-top:10px;}
+#main-menu li,.setting-menu li{margin:2px 0;}
+.nav-link{color:#3a4654;font-size:15px;padding:8px 10px;border-radius:8px;display:block;text-align:right;}
+.nav-link:hover{background:#eef4fb;color:var(--yo-blue);}
+.nav-link.active-nav{background:#e7f1fb;color:var(--yo-blue);font-weight:600;}
+.setting-menu{display:none;}
+.switch{position:relative;display:inline-flex;align-items:center;cursor:pointer;}
+.switch-input{display:none;}
+.switch-label{font-size:12px;color:#5b6b7a;}
+.switch-handle{margin-left:8px;width:46px;height:24px;background:#cfd8e2;border-radius:14px;position:relative;display:inline-block;}
+.switch-handle i{position:absolute;top:4px;font-size:12px;color:#fff;}
+.switch-handle .fa-moon{left:7px;opacity:0;}
+.switch-handle .fa-sun{right:7px;opacity:1;}
+.switch-handle:after{content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:.2s;}
+.switch-input:checked + .switch-label + .switch-handle{background:var(--yo-blue);}
+.switch-input:checked + .switch-label + .switch-handle:after{left:24px;}
+#js-help-button{border-radius:8px;}
+
+.right-content{flex:1 1 auto;padding:0;position:relative;}
+.notifiction-sidebar{display:none;}
+.right-content.show-notification .notifiction-sidebar{display:block;}
+.main-content-block{max-width:none;padding:26px 38px;}
+.main-wrapper h2{font-weight:700;color:#1f2a36;margin-bottom:18px;}
+.action-button-group .btn-action-pill{
+  border:1px solid #d7e0ea;background:#fff;color:#5b6b7a;border-radius:20px;margin-right:6px;padding:5px 14px;font-size:13px;
+}
+.action-button-group .btn-action-pill.pill-active{background:var(--yo-blue);color:#fff;border-color:var(--yo-blue);}
+.search-block{position:relative;}
+.search-block .search-bar{border-radius:20px;padding-left:16px;padding-right:36px;}
+.search-block .search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#8a99a8;}
+
+.logo-list{display:flex;flex-wrap:wrap;gap:18px;margin-top:8px;}
+.logo-block{width:150px;}
+.dashboard-tile{
+  background:#fff;border:1px solid #e6ecf2;border-radius:14px;padding:20px 10px 14px;
+  text-align:center;transition:.15s;height:100%;
+}
+.dashboard-tile:hover{box-shadow:0 10px 26px rgba(20,60,110,.14);transform:translateY(-2px);border-color:#cfe0f2;}
+.dashboard-tile a{text-decoration:none;color:#33414f;display:block;}
+.dashboard-tile img{width:58px;height:58px;object-fit:contain;}
+.dashboard-tile .app-color-icon{display:none;}
+.dashboard-tile:hover .app-black-icon{display:none;}
+.dashboard-tile:hover .app-color-icon{display:inline-block;}
+.tile-title{font-size:14px;font-weight:600;margin-top:6px;}
+
+footer{padding:18px 38px;color:#8493a2;font-size:12px;}
+
+/* dark mode */
+body.yo-dark,body.yo-dark .banner-overlay{background:#1b1f24;color:#dde3ea;}
+body.yo-dark .sidebar,body.yo-dark .dashboard-tile{background:#252b32;border-color:#343b44;}
+body.yo-dark .nav-link{color:#c5ced8;}
+body.yo-dark .main-wrapper h2,body.yo-dark .tile-title,body.yo-dark .user-name{color:#eef2f6;}
+body.yo-dark .dashboard-tile a{color:#dde3ea;}
+
+@media (max-width:991px){ .sidebar.d-none{display:none!important;} }

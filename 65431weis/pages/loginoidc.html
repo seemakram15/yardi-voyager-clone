@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yardi Systems, Inc. - Yardi Voyager</title>
+  <link rel="stylesheet" href="/css/voyager.css">
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/js/voyager.js"></script>
+</head>
+<body id="Body1" class="body" leftmargin="0" topmargin="0" ms_positioning="GridLayout"
+      onload="SetCaption();AutoSizeWindow();nameWindow('Yardi Voyager');">
+  <form method="post" action="./loginoidc.aspx" id="Form1" onsubmit="return false;">
+    <div class="aspNetHidden">
+      <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="">
+      <input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="B0FFEB25">
+      <input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="">
+    </div>
+    <div id="wrapper">
+      <div class="bgimg">
+        <div id="innerwrapper">
+          <div id="logincontainer" class="directional">
+            <div class="container_lft">
+              <div id="userName" class="message">Samuel@paramark.us</div>
+              <div id="webserverID" class="message">Server: 1118</div>
+              <div id="clientlogoid" class="client-logo" style="padding-top:20px"><img src="../images/logo.gif"></div>
+              <div id="logocontainer">
+                <!-- VOYAGER Logo begins-->
+                <img src="../images/logo.png" width="423" height="52">
+                <!-- VOYAGER Logo ends-->
+              </div>
+              <div id="logintextid" class="logintext">
+                For information regarding your login, please
+                <br>
+                contact your system administrator.
+              </div>
+            </div>
+            <div class="columnwidth46">
+              <div class="client-logo"><!-- Corporate Logo --></div>
+              <div id="ctmcontentcontainer">
+                <ul id="tblLogin" class="divcenter">
+                  <li>
+                    <select name="loginAlias" id="loginAlias">
+                      <option value="Live">Live</option>
+                      <option value="Test">Test</option>
+                    </select>
+                  </li>
+                  <li><span class="arrow">&nbsp;</span>
+                    <input name="cmdLogin" type="submit" id="cmdLogin" class="loginformbutton" value="PROCEED" style="width: 40% !important;">
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center;width:46%;float:left;margin-top:75px;">
+            <p style="text-align:right;line-height:52px;">© 2026 Yardi Systems, Inc. All Rights Reserved. |
+              <a href="javascript:void(0)" target="_blank">Terms &amp; Conditions</a></p>
+          </div>
+        </div>
+        <div class="loginshadow">&nbsp;</div>
+      </div>
+    </div>
+  </form>
+  <input name="hdnErrMsg" type="hidden" id="hdnErrMsg">
+  <input name="hdnRedirect" type="hidden" id="hdnRedirect">
+
+  <script>
+    (function () {
+      // preselect Live/Test from ?loginalias=
+      var m = /[?&]loginalias=([^&]+)/i.exec(location.search);
+      var alias = m ? decodeURIComponent(m[1]).toLowerCase() : 'live';
+      var sel = document.getElementById('loginAlias');
+      if (sel) sel.value = (alias === 'test') ? 'Test' : 'Live';
+      // PROCEED -> open the Voyager application shell
+      var form = document.getElementById('Form1');
+      function proceed() { window.location.href = 'menu.html?db=' + (document.getElementById('loginAlias').value || 'Live'); }
+      form.addEventListener('submit', function (e) { e.preventDefault(); proceed(); });
+      document.getElementById('cmdLogin').addEventListener('click', function (e) { e.preventDefault(); proceed(); });
+    })();
+  </script>
+</body>
+</html>

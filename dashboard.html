@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YardiOne Dashboard</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/css/identity.css">
+</head>
+<body class="banner-overlay">
+<div class="d-flex">
+  <header class="d-flex d-lg-none justify-content-between align-items-center bg-white">
+    <button id="btn-toggle" class="btn-toggle btn btn-link text-dark"><i class="fa fa-bars"></i></button>
+    <div class="logo text-center"></div>
+  </header>
+
+  <!-- ===== sidebar ===== -->
+  <div class="sidebar d-none d-lg-flex">
+    <button id="btn-toggle-close" class="btn-toggle-close btn btn-link text-dark d-lg-none"><i class="fa fa-chevron-left"></i></button>
+    <div class="logo my-3 text-center">
+      <a href="/dashboard.html"><img id="logoImage" src="/shared/img/paramark-logo.png" alt="PARAMARK"></a>
+    </div>
+    <div class="profile-info-block text-center mb-4">
+      <div class="w-100 usr-icon-block">
+        <img class="user-icon rounded-circle mb-3" src="/shared/img/usericon-dashborad.png">
+      </div>
+      <div class="dropdown">
+        <button class="dropdown dropdown-toggle btn btn-link text-dark text-decoration-none" id="navbarDropdown1"
+                role="button" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <h1 class="user-name d-inline-block">Samuel Saqib</h1>
+        </button>
+        <ul class="dropdown-menu profile-dropdown" aria-labelledby="navbarDropdown1">
+          <a class="dropdown-item" href="javascript:void(0)">My Profile</a>
+          <a class="dropdown-item" href="javascript:void(0)">Debug</a>
+          <a class="dropdown-item" style="cursor:pointer" href="/identityserver/login.html">Logout</a>
+        </ul>
+      </div>
+    </div>
+    <nav class="w-100">
+      <ul id="main-menu" class="list-unstyled text-end">
+        <li><a id="dashboard-menu" class="nav-link active-nav" href="/dashboard.html">Dashboard</a></li>
+        <li><a id="notification-menu" class="nav-link" href="javascript:void(0);">
+          <span id="notification-status" class="badge rounded-pill" style="display:none"></span> Notification</a></li>
+      </ul>
+      <ul id="setting-menu" class="list-unstyled text-end setting-menu">
+        <li><a class="nav-link active-nav" href="javascript:void(0)">Setting</a></li>
+        <li><a class="nav-link" href="javascript:void(0)">Apps</a></li>
+        <li><a class="nav-link" href="javascript:void(0)">Groups</a></li>
+        <li><a class="nav-link" href="javascript:void(0)">User</a></li>
+        <li><a class="nav-link" href="javascript:void(0)">Reports</a></li>
+        <li><a class="nav-link" href="javascript:void(0)">SAML Configuration</a></li>
+        <li><a class="nav-link" href="javascript:void(0)">Company Announcements</a></li>
+        <li><a class="nav-link" href="javascript:void(0)">Admin Permissions</a></li>
+      </ul>
+    </nav>
+    <nav class="w-100 mt-auto">
+      <ul class="list-unstyled text-center d-flex justify-content-center align-items-center gap-3">
+        <li>
+          <label class="switch">
+            <input class="switch-input" type="checkbox" id="darkModeToggle">
+            <span class="switch-label" data-on="Dark Mode" data-off="Light Mode"></span>
+            <span class="switch-handle"><i class="fas fa-moon"></i><i class="fas fa-sun"></i></span>
+          </label>
+        </li>
+        <li><button class="btn btn-primary me-2" id="js-help-button"><i class="fa fa-question-circle me-2"></i>Help</button></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- ===== right content ===== -->
+  <div class="px-3 right-content">
+    <div class="notifiction-sidebar">
+      <div class="w-100 d-flex align-items-center justify-content-end mb-4">
+        <span class="text-primary text-uppercase small fw-bold pe-3"><span id="announcement-count-block">0</span>&nbsp;New Message</span>
+        <button type="button" id="close-announcement" class="btn btn-link text-dark px-1"><i class="fal fa-times"></i></button>
+      </div>
+      <div class="w-100"><ul id="announcement-list" class="list-unstyled">No active notifications.</ul></div>
+    </div>
+
+    <div class="container main-content-block">
+      <main>
+        <div class="w-100 main-wrapper">
+          <div class="row"><div class="col-12"><h2>Welcome back</h2></div></div>
+          <div class="col-12 my-4">
+            <div class="row">
+              <div role="group" aria-label=" " class="action-button-group col-md-7">
+                <button class="btn btn-link btn-action-pill appOrderFilter" value="2">Recent</button>
+                <button class="btn btn-link btn-action-pill pill-active appOrderFilter" value="0"><i class="fal fa-arrow-up"></i></button>
+                <button class="btn btn-link btn-action-pill appOrderFilter" value="1"><i class="fal fa-arrow-down"></i></button>
+              </div>
+              <div class="col-md-5 d-none d-md-flex align-items-center search-block" id="dashboard_search">
+                <input class="search-query form-control search-bar d-inline-block" type="text" placeholder="Search">
+                <i class="fal fa-search search-icon"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 wrapper-md">
+              <div class="app-list">
+                <div class="w-100" id="master_div">
+                  <div class="logo-list" id="tenant_apps">
+
+                    <div class="logo-block" name="app" data-title="Aspire" data-client-id="454327" data-app-name="tenant_app_rows">
+                      <div class="dashboard-tile text-center">
+                        <a href="javascript:void(0)" onclick="alert('Aspire is not part of this Voyager demo clone.');return false;">
+                          <img class="app-black-icon" src="/shared/appicons/icon-aspire-black.png">
+                          <img class="app-color-icon" src="/shared/appicons/icon-aspire-color.png">
+                          <div class="tile-title pt-2 word-wrap">Aspire</div>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="logo-block" name="app" data-title="Elise AI" data-client-id="754300" data-app-name="tenant_app_rows">
+                      <div class="dashboard-tile text-center">
+                        <a href="javascript:void(0)" onclick="alert('Elise AI is not part of this Voyager demo clone.');return false;">
+                          <img class="app-black-icon" src="/shared/appicons/icon-executivesummit-black.png">
+                          <img class="app-color-icon" src="/shared/appicons/icon-executivesummit-color.png">
+                          <div class="tile-title pt-2 word-wrap">Elise AI</div>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="logo-block" name="app" data-title="Isolved" data-client-id="449859" data-app-name="tenant_app_rows">
+                      <div class="dashboard-tile text-center">
+                        <a href="javascript:void(0)" onclick="alert('Isolved is not part of this Voyager demo clone.');return false;">
+                          <img class="app-black-icon" src="/shared/appicons/icon-pulse-black.png">
+                          <img class="app-color-icon" src="/shared/appicons/icon-pulse-color.png">
+                          <div class="tile-title pt-2 word-wrap">Isolved</div>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="logo-block" name="app" data-title="RentCafe Site Manager" data-client-id="449853" data-app-name="tenant_app_rows">
+                      <div class="dashboard-tile text-center">
+                        <a href="javascript:void(0)" onclick="alert('RentCafe Site Manager is not part of this Voyager demo clone.');return false;">
+                          <img class="app-black-icon" src="/shared/appicons/icon-rentcafe-black.png">
+                          <img class="app-color-icon" src="/shared/appicons/icon-rentcafe-color.png">
+                          <div class="tile-title pt-2 word-wrap">RentCafe Site Manager</div>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="logo-block" name="app" data-title="Track IT" data-client-id="754297" data-app-name="tenant_app_rows">
+                      <div class="dashboard-tile text-center">
+                        <a href="javascript:void(0)" onclick="alert('Track IT is not part of this Voyager demo clone.');return false;">
+                          <img class="app-black-icon" src="/shared/appicons/iconqualified-yardi-shares.png">
+                          <img class="app-color-icon" src="/shared/appicons/iconqualified-yardi-shares-BLU.png">
+                          <div class="tile-title pt-2 word-wrap">Track IT</div>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="logo-block" name="app" data-title="Voyager 7S - Live" data-client-id="449873" data-app-name="tenant_app_rows">
+                      <div class="dashboard-tile text-center">
+                        <a href="/65431weis/pages/loginoidc.html?loginalias=live">
+                          <img class="app-black-icon" src="/shared/appicons/icon-voyager-black.png">
+                          <img class="app-color-icon" src="/shared/appicons/icon-voyager-color.png">
+                          <div class="tile-title pt-2 word-wrap">Voyager 7S - Live</div>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="logo-block" name="app" data-title="Voyager 7S - Test" data-client-id="449874" data-app-name="tenant_app_rows">
+                      <div class="dashboard-tile text-center">
+                        <a href="/65431weis/pages/loginoidc.html?loginalias=test">
+                          <img class="app-black-icon" src="/shared/appicons/icon-voyager-black.png">
+                          <img class="app-color-icon" src="/shared/appicons/icon-voyager-color.png">
+                          <div class="tile-title pt-2 word-wrap">Voyager 7S - Test</div>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="logo-block" name="app" data-title="Yardi Client Central" data-client-id="2949" data-app-name="tenant_app_rows">
+                      <div class="dashboard-tile text-center">
+                        <a href="javascript:void(0)" onclick="alert('Yardi Client Central is not part of this Voyager demo clone.');return false;">
+                          <img class="app-black-icon" src="/shared/appicons/icon-client-central-black.png">
+                          <img class="app-color-icon" src="/shared/appicons/icon-client-central-color.png">
+                          <div class="tile-title pt-2 word-wrap">Yardi Client Central</div>
+                        </a>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer>
+        <div class="row"><div class="col-xs-12 col-sm-6">
+          <p>©2026 Yardi Systems, Inc. All Rights Reserved.</p>
+          <p>Yardi, the Yardi logo, and all Yardi product names are trademarks of Yardi Systems, Inc.</p>
+        </div></div>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="/js/identity.js"></script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+/* =====================================================================
+   Yardi Voyager 7S clone — classic YSI / GreyGreenRust theme
+   Recreates ysi.css + GreyGreenRust.css look used by the .aspx pages.
+   (frontend only — no Yardi code, purely a visual reproduction)
+   ===================================================================== */
+
+:root{
+  --yardi-blue:#0072ce;
+  --yardi-blue-dark:#0a5ca6;
+  --yardi-blue-light:#2a86d8;
+  --yardi-navy:#1c3f6e;
+  --section-blue:#2f6db5;
+  --section-blue-dk:#235a99;
+  --rust:#e0701a;
+  --sidebar-bg:#e9eef3;
+  --grid-head:#e4e7ea;
+  --row-shadow:#eef2f7;
+  --req-bg:#ffffd6;
+}
+
+/* ---------- base ---------- */
+html,body{margin:0;padding:0;}
+body.body{
+  font-family:Verdana, Tahoma, Geneva, sans-serif;
+  font-size:11px;
+  color:#222;
+  background:#ffffff;
+  position:relative;
+}
+.aspNetHidden{display:none;}
+a{color:#15538c;text-decoration:none;}
+a:hover{text-decoration:underline;}
+img{border:0;}
+
+/* ---------- title bar (.Tab / table.TitleBar) ---------- */
+.Tab{width:100%;}
+table.TitleBar{width:100%;border-collapse:collapse;}
+td.TitleBar{
+  background:linear-gradient(to bottom,var(--section-blue) 0%,var(--section-blue-dk) 100%);
+  color:#fff;font-weight:bold;font-size:12px;
+  padding:5px 10px;letter-spacing:.2px;
+}
+td.TitleBar span{color:#fff;}
+
+/* ---------- section headers (.SectionTop) ---------- */
+.SectionTop{
+  background:linear-gradient(to bottom,#3a83c4 0%,var(--section-blue-dk) 100%);
+  color:#fff;font-weight:bold;font-size:11px;
+  padding:4px 8px;white-space:nowrap;
+  border:1px solid var(--section-blue-dk);
+}
+
+/* ---------- text/value/label classes ---------- */
+.Txt{font-family:Verdana,Tahoma,sans-serif;font-size:11px;color:#222;}
+.Def{font-family:Verdana,Tahoma,sans-serif;font-size:11px;color:var(--yardi-navy);
+     cursor:pointer;font-weight:bold;}
+.Def:hover{text-decoration:underline;}
+
+/* inputs */
+.Inp,input.Inp,input[type="text"].Inp{
+  font-family:Verdana,Tahoma,sans-serif;font-size:11px;
+  border:1px solid #7f9db9;background:#fff;color:#222;height:18px;padding:0 3px;
+  box-sizing:border-box;
+}
+.Req{
+  font-family:Verdana,Tahoma,sans-serif;font-size:11px;
+  border:1px solid #b59b00;background:var(--req-bg);color:#222;height:18px;padding:0 3px;
+  box-sizing:border-box;
+}
+select{
+  font-family:Verdana,Tahoma,sans-serif;font-size:11px;
+  border:1px solid #7f9db9;background:#fff;height:19px;
+}
+input[type="checkbox"]{margin:0;vertical-align:middle;}
+span[id$="_Label"].Txt{display:inline-block;}
+
+/* lookup autocomplete list (jquery-ui) */
+.ui-autocomplete{font-family:Verdana;font-size:11px;}
+
+/* ---------- classic 3D buttons ---------- */
+.body button{
+  font-family:Verdana,Tahoma,sans-serif;font-size:11px;color:#1a1a1a;
+  background:linear-gradient(to bottom,#fdfdfd 0%,#e7e7e7 48%,#dcdcdc 52%,#cfcfcf 100%);
+  border:1px solid #8a8f96;border-radius:2px;
+  padding:0 6px;cursor:pointer;line-height:18px;
+  box-shadow:inset 0 1px 0 #ffffff;
+}
+.body button:hover,.body button.Highlight{
+  background:linear-gradient(to bottom,#eaf4ff 0%,#cfe6fb 50%,#bcd9f5 100%);
+  border-color:#5b9bd5;
+}
+.body button.Clicked,.body button:active{
+  background:linear-gradient(to bottom,#bcd9f5 0%,#cfe6fb 100%);
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.35);
+}
+.body button u{text-decoration:underline;}
+
+/* ---------- ysi data grid ---------- */
+.ysi-grid-view{font-family:Verdana,Tahoma,sans-serif;font-size:11px;}
+.ysi-grid-hDiv{background:var(--grid-head);}
+table.Header{border-collapse:collapse;}
+table.Header th{
+  background:linear-gradient(to bottom,#f1f3f5 0%,#dfe3e7 100%);
+  border:1px solid #b9bfc5;color:#33414f;font-weight:bold;font-size:11px;
+  padding:3px 4px;text-align:left;white-space:nowrap;
+}
+.ysi-grid-dDiv{background:#fff;}
+.ysi-grid-dDiv table{border-collapse:collapse;}
+.ysi-grid-dDiv td{
+  border:1px solid #d7dbdf;padding:2px 4px;font-size:11px;color:#222;height:18px;
+}
+.ysi-grid-dDiv tr.shadow{background:var(--row-shadow);}
+.ysi-grid-dDiv tr:hover{background:#dcebfb;}
+.ysi-grid-dDiv input.Inp{height:18px;}
+.IPADscrollbar{scrollbar-width:thin;}
+
+/* ---------- progress bar / dialogs ---------- */
+.progressbarOuter{border:1px solid #888;background:#fff;padding:8px 14px;}
+.progressbarCaption{font-family:Verdana;font-size:11px;margin-bottom:4px;}
+
+/* =====================================================================
+   loginoidc.aspx  (Live / Test  ->  PROCEED)
+   ===================================================================== */
+#wrapper{min-height:100vh;}
+.bgimg{
+  min-height:100vh;width:100%;
+  background:linear-gradient(135deg,#0a5ca6 0%,#0072ce 45%,#1f8ad6 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+#innerwrapper{width:760px;max-width:94vw;}
+#logincontainer{
+  background:#ffffff;border-radius:4px;
+  box-shadow:0 18px 50px rgba(0,0,0,.35);
+  display:flex;overflow:hidden;border:1px solid #cdd6df;
+}
+#logincontainer.directional{flex-direction:row;}
+.container_lft{
+  width:54%;padding:34px 30px;border-right:1px solid #e3e8ee;
+  background:#f7f9fb;
+}
+#userName.message{font-size:12px;color:var(--yardi-navy);font-weight:bold;margin-bottom:4px;}
+#webserverID.message{font-size:11px;color:#7c8a98;margin-bottom:18px;}
+#clientlogoid.client-logo img{max-height:34px;}
+#logocontainer{margin:22px 0 16px;}
+#logocontainer img{max-width:100%;height:auto;}
+.logintext{font-size:11px;color:#52606d;line-height:1.5;}
+.columnwidth46{width:46%;padding:40px 34px;display:flex;flex-direction:column;justify-content:center;}
+.columnwidth46 .client-logo{min-height:6px;}
+#ctmcontentcontainer{margin-top:6px;}
+ul#tblLogin.divcenter{list-style:none;margin:0;padding:0;text-align:center;}
+ul#tblLogin.divcenter li{margin:10px 0;}
+ul#tblLogin select{width:80%;height:30px;font-size:13px;border:1px solid #b8c2cc;border-radius:3px;}
+.arrow{display:none;}
+.loginformbutton{
+  background:linear-gradient(to bottom,#1f8ad6 0%,#0072ce 100%);
+  color:#fff;border:1px solid #0a5ca6;border-radius:3px;
+  font-size:13px;font-weight:bold;letter-spacing:.5px;height:34px;cursor:pointer;
+  padding:0 22px;width:50% !important;
+}
+.loginformbutton:hover{background:linear-gradient(to bottom,#2a96e2 0%,#0a78d6 100%);}
+.loginshadow{display:none;}
+#logincontainer + div p,.bgimg p{color:#dfeefb;font-size:11px;}
+.bgimg p a{color:#fff;text-decoration:underline;}
+
+/* =====================================================================
+   iData_quickMenu.aspx  (select your application — tiles)
+   ===================================================================== */
+.quickmenu_identifier{
+  background:linear-gradient(to bottom,#eef3f8,#dde6ee);
+  border-bottom:1px solid #c3ced8;
+}
+.qmtitle{font-size:12px;font-weight:bold;color:var(--yardi-navy);padding:6px 4px;}
+.qmdb{font-size:11px;color:#5b6b7a;padding:6px 8px;}
+.qmwrap{padding:8px 18px;}
+.qmwrap table td a img,.qmwrap table td img{display:inline-block;}
+.qmwrap select{width:180px;margin-top:2px;}
+.qmwrap td{vertical-align:top;}
+
+/* =====================================================================
+   menu.aspx shell  (header + side menu + content iframe)
+   ===================================================================== */
+.voy-shell{height:100vh;display:flex;flex-direction:column;overflow:hidden;background:#fff;}
+
+/* --- top banner --- */
+#voyHeader{
+  background:linear-gradient(to bottom,#2a86d8 0%,#0f6fc2 55%,#0a5ca6 100%);
+  color:#fff;position:relative;flex:0 0 auto;
+  box-shadow:0 1px 4px rgba(0,0,0,.25);
+  padding:8px 14px 6px;
+}
+#voyHeader .voy-logo{font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:24px;
+  letter-spacing:.5px;line-height:1;}
+#voyHeader .voy-logo .vy{color:#fff;}
+#voyHeader .voy-logo .vg{color:#bcd6ef;font-weight:300;letter-spacing:2px;}
+#voyHeader .voy-navrow{display:flex;align-items:flex-end;justify-content:space-between;margin-top:8px;}
+#voySearch{background:#fff;border:1px solid #cbd5df;border-radius:2px;height:20px;width:215px;
+  font-size:11px;padding:0 5px;color:#333;}
+#voyNav{font-size:12px;}
+#voyNav a{color:#fff;text-decoration:none;margin-left:18px;padding-bottom:2px;}
+#voyNav a:hover{text-decoration:underline;}
+
+/* --- body row: sidebar + content --- */
+.voy-body{flex:1 1 auto;display:flex;min-height:0;background:#fff;}
+
+#sideBar{
+  flex:0 0 165px;background:var(--sidebar-bg);
+  border-right:1px solid #c3ced8;position:relative;overflow:visible;
+  transition:flex-basis .15s ease;
+}
+.voy-shell.side-collapsed #sideBar{flex-basis:14px;}
+.voy-shell.side-collapsed #sideMenu{display:none;}
+
+.collapse-tab{
+  position:absolute;top:6px;right:-1px;width:16px;height:22px;
+  background:linear-gradient(to bottom,#ef8a32,var(--rust));
+  border:1px solid #b85a12;border-left:none;border-radius:0 3px 3px 0;
+  color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:10px;z-index:20;box-shadow:1px 1px 2px rgba(0,0,0,.2);
+}
+#sideMenu{list-style:none;margin:0;padding:6px 0 0 0;}
+#sideMenu>li{position:relative;}
+#sideMenu>li>a.module{
+  display:block;font-size:12px;color:var(--yardi-navy);text-decoration:none;
+  padding:3px 8px 3px 16px;line-height:16px;white-space:nowrap;cursor:pointer;
+}
+#sideMenu>li>a.module:before{
+  content:"\25B8";color:#7a8699;font-size:10px;position:absolute;left:5px;top:3px;
+}
+#sideMenu>li:hover>a.module{background:#cfe0f2;text-decoration:none;}
+#sideMenu>li.open>a.module{background:#2f6db5;color:#fff;}
+#sideMenu>li.open>a.module:before{color:#cfe0f2;}
+
+/* --- flyout menus --- */
+.flyout{
+  position:absolute;top:0;left:165px;min-width:215px;background:#fff;
+  border:1px solid #8a97a6;box-shadow:2px 2px 7px rgba(0,0,0,.28);
+  z-index:40;display:none;padding:0;margin:0;list-style:none;
+}
+#sideMenu>li.open>.flyout{display:block;}
+.flyout li{position:relative;border-bottom:1px solid #e6eaee;}
+.flyout li:last-child{border-bottom:none;}
+.flyout li>a{
+  display:block;font-size:11px;color:var(--yardi-navy);text-decoration:none;
+  padding:5px 26px 5px 12px;white-space:nowrap;cursor:pointer;line-height:14px;
+}
+.flyout li>a:hover{background:#cfe0f2;text-decoration:none;}
+.flyout li.has-sub>a:after{content:"\25B8";position:absolute;right:8px;top:5px;color:#6b7a8a;}
+.flyout li.open>a,.flyout li.active>a{background:#2f6db5;color:#fff;}
+.flyout li.open>a:after{color:#cfe0f2;}
+/* nested flyout opens to the right of its parent item */
+.flyout .flyout{top:-1px;left:100%;display:none;}
+.flyout li.open>.flyout{display:block;}
+/* section label rows inside a flyout (e.g. "Banking") */
+.flyout li.flysection>span{
+  display:block;background:#dfe7ef;color:#33414f;font-weight:bold;font-size:11px;
+  padding:4px 12px;border-bottom:1px solid #cdd7e1;cursor:default;
+}
+
+/* --- content iframe --- */
+.voy-content{flex:1 1 auto;min-width:0;background:#fff;position:relative;}
+#mainframe{width:100%;height:100%;border:0;display:block;}
+
+/* footer used on quickmenu / pages */
+.voy-footer{font-size:11px;color:#8493a2;padding:10px 18px;}
+
+/* hover-to-open flyouts (in addition to .open for click / touch) */
+#sideMenu>li:hover>a.module{background:#2f6db5;color:#fff;}
+#sideMenu>li:hover>a.module:before{color:#cfe0f2;}
+#sideMenu>li:hover>.flyout{display:block;}
+.flyout li.has-sub:hover>a{background:#2f6db5;color:#fff;}
+.flyout li.has-sub:hover>a:after{color:#cfe0f2;}
+.flyout li.has-sub:hover>.flyout{display:block;}
+.flyout li>a:hover{background:#cfe0f2;}
+.flyout li.has-sub:hover>a:hover{background:#2f6db5;}

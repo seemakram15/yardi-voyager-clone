@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign In</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/css/identity.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row m-b-n">
+      <div class="col-12 main-content">
+        <div class="logo-container">
+          <div class="text-center mb-5">
+            <a class="logo">
+              <img src="/shared/img/paramark-logo.png" alt="PARAMARK Real Estate Services">
+            </a>
+          </div>
+          <div class="w-100">
+            <div class="row d-none" id="passkey-error">
+              <div class="col-sm-12">
+                <div class="alert alert-danger text-start">
+                  <div class="validation-summary-errors"><ul><li></li></ul></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <ul class="list-inline">
+                <li>
+                  <a class="btn btn-primary btn-block btn-shadow mb-4" id="btn-passkey-login">Sign in with Passkey</a>
+                </li>
+              </ul>
+              <div class="or-holder text-center"><label>OR</label></div>
+              <div class="login-form">
+                <form action="" method="post">
+                  <input id="hidd_txtReturnURL" type="hidden" name="AppReturnUrl" value="/">
+                  <fieldset>
+                    <div class="form-group input-withicon floating-label">
+                      <label for="Username">Username</label>
+                      <i class="far fa-user input-icon"></i>
+                      <input class="form-control" autofocus placeholder="Username" autocomplete="off" type="text"
+                             data-val="true" data-val-required="The Username field is required."
+                             id="Username" name="Username" value="Samuel@paramark.us">
+                    </div>
+                    <div class="form-group input-withicon my-4 floating-label">
+                      <label for="Password">Password</label>
+                      <i class="fas fa-key input-icon"></i>
+                      <input class="form-control pe-5" type="password" autocomplete="off" placeholder="Password"
+                             id="txtPassword" data-val="true" data-val-required="The Password field is required."
+                             name="Password" value="paramark123">
+                      <i class="fa fa-eye-slash pwdshow icon input-pass-icon me-4 showpwd" id="show_password"></i>
+                    </div>
+                    <div class="row">
+                      <div class="text-center w-100">
+                        <a href="javascript:void(0)" class="text-dark" id="lnkForgotPassword">Forgot password?</a>
+                      </div>
+                    </div>
+                    <div class="form-group mt-4">
+                      <button class="btn btn-primary btn-login btn-shadow mb-4 mx-auto" name="button" id="loginbtn" value="login" type="submit">Login</button>
+                    </div>
+                  </fieldset>
+                  <input name="__RequestVerificationToken" type="hidden" value="CfDJ8OSS7LnBRTdHi6cpNh6B26O5...DEMO">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container"><div class="row"><div class="loginannouncements"></div></div></div>
+  </div>
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="/js/identity.js"></script>
+</body>
+</html>
