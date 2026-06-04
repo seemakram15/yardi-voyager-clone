@@ -151,11 +151,39 @@
   }
 
   /* =====================================================================
-     2) STORE
+     2) STORE  — server-backed so EVERY browser sees the same upload.
+     The parsed data is POSTed to /api/bankrec (a JSON file on the server).
+     localStorage is kept only as an instant same-tab cache / offline
+     fallback; the server copy is the source of truth shared across browsers.
      ===================================================================== */
-  function store(data) { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {} }
+  var API = '/api/bankrec';
+
+  // Resolves to { shared: true } when the server copy was saved (localhost
+  // node server), or { shared: false } when there is no API (e.g. the static
+  // Vercel deployment) — in that case the localStorage copy still works for
+  // this browser. Never rejects, so a missing API never breaks the upload.
+  function store(data) {
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}     // instant local cache
+    return fetch(API, {                                                       // shared server copy
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function (r) { return { shared: r.ok }; })
+      .catch(function () { return { shared: false }; });
+  }
+  // local cache only (synchronous fallback)
   function load() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } }
-  function clear() { try { localStorage.removeItem(KEY); } catch (e) {} }
+  // server copy (authoritative, shared) — falls back to the local cache if offline
+  function loadRemote() {
+    return fetch(API, { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) { return (d && typeof d === 'object' && Object.keys(d).length) ? d : load(); })
+      .catch(function () { return load(); });
+  }
+  function clear() {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    return fetch(API, { method: 'DELETE' }).catch(function () {});
+  }
 
   /* =====================================================================
      3) RENDER  (Bank Reconcile grids + summary header)
@@ -225,9 +253,12 @@
   }
 
   function applyAll() {
-    var d = load(); if (!d) return;
-    applyReconcile(d);
-    applyFilter(d);
+    return loadRemote().then(function (d) {
+      if (!d) return;
+      try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) {}   // refresh local cache
+      applyReconcile(d);
+      applyFilter(d);
+    });
   }
 
   /* =====================================================================
@@ -262,12 +293,14 @@
         var nd = (data.deposits || []).length, nc = (data.checks || []).length, no = (data.other || []).length,
             nbk = (data.book || []).length, nbr = (data.bankrec || []).length;
         if (nd + nc + no + nbk + nbr === 0) throw new Error('No transactions found. Is this a Yardi Bank Reconciliation Report PDF?');
-        store(data);
-        var parts = [nc + ' check' + (nc === 1 ? '' : 's'), nd + ' deposit' + (nd === 1 ? '' : 's')];
-        if (no) parts.push(no + ' other item' + (no === 1 ? '' : 's'));
-        if (nbr) parts.push(nbr + ' bank reconciling item' + (nbr === 1 ? '' : 's'));
-        if (nbk) parts.push(nbk + ' book reconciling item' + (nbk === 1 ? '' : 's'));
-        status('Success — inserted ' + parts.join(', ') + ' for "' + (data.bankName || 'bank account') + '". Click PROCEED to view.', 'ok');
+        return store(data).then(function (res) {
+          var parts = [nc + ' check' + (nc === 1 ? '' : 's'), nd + ' deposit' + (nd === 1 ? '' : 's')];
+          if (no) parts.push(no + ' other item' + (no === 1 ? '' : 's'));
+          if (nbr) parts.push(nbr + ' bank reconciling item' + (nbr === 1 ? '' : 's'));
+          if (nbk) parts.push(nbk + ' book reconciling item' + (nbk === 1 ? '' : 's'));
+          var where = res && res.shared ? 'Now available in every browser.' : 'Saved in this browser.';
+          status('Success — inserted ' + parts.join(', ') + ' for "' + (data.bankName || 'bank account') + '". ' + where + ' Click PROCEED to view.', 'ok');
+        });
       }).catch(function (err) {
         status('Could not read the file: ' + (err && err.message ? err.message : err), 'err');
       }).then(function () { uploadBtn.disabled = false; });
@@ -277,8 +310,8 @@
   /* =====================================================================
      5) public + autorun
      ===================================================================== */
-  w.Ledger = { parseFile: parseFile, parseLines: parseLines, store: store, load: load, clear: clear,
-               applyAll: applyAll, applyReconcile: applyReconcile, rowHtml: rowHtml };
+  w.Ledger = { parseFile: parseFile, parseLines: parseLines, store: store, load: load, loadRemote: loadRemote,
+               clear: clear, applyAll: applyAll, applyReconcile: applyReconcile, rowHtml: rowHtml };
 
   function ready(fn) { if (document.readyState !== 'loading') fn(); else document.addEventListener('DOMContentLoaded', fn); }
   ready(function () {

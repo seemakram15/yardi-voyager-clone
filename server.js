@@ -6,6 +6,39 @@ const path = require('path');
 const ROOT = __dirname;
 const PORT = process.env.PORT || 8080;
 
+/* Shared ledger store: a single JSON file every browser reads/writes through
+   the API below. This is what makes uploaded data visible to ALL browsers
+   (including a fresh Playwright Chromium) instead of being trapped in one
+   browser's localStorage. */
+const DATA_DIR = path.join(ROOT, 'data');
+const DATA_FILE = path.join(DATA_DIR, 'bankrec.json');
+
+function sendJson(res, code, body) {
+  res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
+  res.end(body);
+}
+
+function handleBankRecApi(req, res) {
+  if (req.method === 'GET') {
+    return fs.readFile(DATA_FILE, 'utf8', (e, txt) => sendJson(res, 200, e ? 'null' : txt));
+  }
+  if (req.method === 'POST' || req.method === 'PUT') {
+    let body = '';
+    req.on('data', (c) => { body += c; if (body.length > 8e6) req.destroy(); });   // 8 MB guard
+    req.on('end', () => {
+      try { JSON.parse(body); } catch (ex) { return sendJson(res, 400, '{"error":"invalid json"}'); }
+      fs.mkdir(DATA_DIR, { recursive: true }, () => {
+        fs.writeFile(DATA_FILE, body, (we) => we ? sendJson(res, 500, '{"error":"write failed"}') : sendJson(res, 200, '{"ok":true}'));
+      });
+    });
+    return;
+  }
+  if (req.method === 'DELETE') {
+    return fs.unlink(DATA_FILE, () => sendJson(res, 200, '{"ok":true}'));
+  }
+  return sendJson(res, 405, '{"error":"method not allowed"}');
+}
+
 const MIME = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -20,6 +53,7 @@ const MIME = {
 const server = http.createServer((req, res) => {
   try {
     let urlPath = decodeURIComponent(req.url.split('?')[0]);
+    if (urlPath === '/api/bankrec') return handleBankRecApi(req, res);
     if (urlPath === '/' || urlPath === '') urlPath = '/index.html';
     // prevent path traversal
     let filePath = path.normalize(path.join(ROOT, urlPath));
