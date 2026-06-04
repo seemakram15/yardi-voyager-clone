@@ -272,3 +272,50 @@ ul#tblLogin select{width:80%;height:30px;font-size:13px;border:1px solid #b8c2cc
 .flyout li.has-sub:hover>.flyout{display:block;}
 .flyout li>a:hover{background:#cfe0f2;}
 .flyout li.has-sub:hover>a:hover{background:#2f6db5;}
+
+/* ===== Upload Ledger File — button + modal ===== */
+.ledger-upload-li{margin-top:14px;}
+.ledger-btn{
+  font-family:Verdana,Tahoma,sans-serif;font-size:12px;font-weight:bold;cursor:pointer;
+  color:#0a5ca6;background:#fff;border:1px solid #0a5ca6;border-radius:3px;
+  padding:7px 16px;transition:.12s;
+}
+.ledger-btn:hover{background:#0a5ca6;color:#fff;}
+
+.ledger-modal{
+  display:none;position:fixed;inset:0;z-index:99999;
+  background:rgba(12,30,52,.55);align-items:center;justify-content:center;
+}
+.ledger-modal-box{
+  width:480px;max-width:92vw;background:#fff;border-radius:6px;overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.45);font-family:Verdana,Tahoma,sans-serif;
+}
+.ledger-modal-head{
+  background:linear-gradient(to bottom,#2a86d8,#0a5ca6);color:#fff;
+  padding:11px 16px;font-size:14px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;
+}
+.ledger-x{cursor:pointer;font-size:20px;line-height:1;opacity:.9;}
+.ledger-x:hover{opacity:1;}
+.ledger-modal-body{padding:18px 16px;}
+.ledger-help{font-size:11.5px;color:#52606d;line-height:1.5;margin:0 0 14px;}
+.ledger-modal-body input[type=file]{
+  width:100%;font-size:12px;border:1px dashed #9db4cc;border-radius:4px;padding:14px;background:#f6f9fc;box-sizing:border-box;
+}
+.ledger-status{margin-top:12px;font-size:12px;min-height:18px;line-height:1.45;}
+.ledger-status.ok{color:#1c7a3e;font-weight:bold;}
+.ledger-status.err{color:#b5341f;font-weight:bold;}
+.ledger-modal-foot{
+  padding:12px 16px;background:#f2f5f8;border-top:1px solid #e1e7ee;
+  display:flex;justify-content:flex-end;gap:10px;
+}
+.ledger-cancel{
+  font-family:Verdana,sans-serif;font-size:12px;cursor:pointer;padding:7px 16px;
+  border:1px solid #b8c2cc;border-radius:3px;background:#fff;color:#3a4654;
+}
+.ledger-cancel:hover{background:#eef2f6;}
+.ledger-upload{
+  font-family:Verdana,sans-serif;font-size:12px;font-weight:bold;cursor:pointer;padding:7px 18px;
+  border:1px solid #0a5ca6;border-radius:3px;color:#fff;background:linear-gradient(to bottom,#1f8ad6,#0a5ca6);
+}
+.ledger-upload:hover{background:linear-gradient(to bottom,#2a96e2,#0a78d6);}
+.ledger-upload:disabled{opacity:.6;cursor:default;}

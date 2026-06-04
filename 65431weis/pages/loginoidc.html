@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="/css/voyager.css">
   <script src="/vendor/jquery/jquery.min.js"></script>
   <script src="/js/voyager.js"></script>
+  <script src="/vendor/pdfjs/pdf.min.js"></script>
+  <script src="/js/ledger.js"></script>
 </head>
 <body id="Body1" class="body" leftmargin="0" topmargin="0" ms_positioning="GridLayout"
       onload="SetCaption();AutoSizeWindow();nameWindow('Yardi Voyager');">
@@ -48,6 +50,9 @@
                   <li><span class="arrow">&nbsp;</span>
                     <input name="cmdLogin" type="submit" id="cmdLogin" class="loginformbutton" value="PROCEED" style="width: 40% !important;">
                   </li>
+                  <li class="ledger-upload-li">
+                    <button type="button" id="btnUploadLedger" class="ledger-btn">&#11014; Upload Ledger File</button>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -78,5 +83,25 @@
       document.getElementById('cmdLogin').addEventListener('click', function (e) { e.preventDefault(); proceed(); });
     })();
   </script>
+
+  <!-- ===== Upload Ledger File modal ===== -->
+  <div id="ledgerModal" class="ledger-modal">
+    <div class="ledger-modal-box">
+      <div class="ledger-modal-head">
+        <span>Upload Yardi Ledger File</span>
+        <span id="ledgerClose" class="ledger-x" title="Close">&times;</span>
+      </div>
+      <div class="ledger-modal-body">
+        <p class="ledger-help">Select a Yardi <b>Bank Reconciliation Report</b> (PDF). Its transactions are parsed and inserted into the Bank Reconcile screen:
+          Outstanding &amp; Cleared Checks &rarr; <b>Checks</b>, Cleared Deposits &rarr; <b>Deposits</b>, Cleared Other Items &rarr; <b>Other Items</b>.</p>
+        <input type="file" id="ledgerFile" accept="application/pdf,.pdf">
+        <div id="ledgerStatus" class="ledger-status"></div>
+      </div>
+      <div class="ledger-modal-foot">
+        <button type="button" id="ledgerCancelBtn" class="ledger-cancel">Cancel</button>
+        <button type="button" id="ledgerUploadBtn" class="ledger-upload">Upload &amp; Insert</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

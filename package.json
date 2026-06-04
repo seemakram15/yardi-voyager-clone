@@ -1,12 +1,9 @@
 {
   "name": "yardi-voyager-clone",
-  "version": "1.0.0",
-  "description": "Frontend-only clone of Yardi Voyager 7S — YardiOne login, dashboard, Voyager login, quick menu, side-menu navigation and the Bank Reconcile workflow.",
+  "version": "1.1.0",
+  "description": "Frontend-only clone of Yardi Voyager 7S with a ledger-file upload that parses a Bank Reconciliation Report (PDF) and populates the Bank Reconcile screen dynamically.",
   "private": true,
-  "scripts": {
-    "start": "node server.js",
-    "serve": "node server.js"
-  },
+  "scripts": { "start": "node server.js", "serve": "node server.js" },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.2",
     "bootstrap": "^5.3.3",
@@ -14,6 +11,7 @@
     "jquery-ui-dist": "1.13.2"
   },
   "devDependencies": {
+    "pdfjs-dist": "3.11.174",
     "sharp": "^0.33.0"
   }
 }

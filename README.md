@@ -55,6 +55,21 @@ Initial figures reproduce the document exactly: GL 40,137.98 · Book −2,531.25
 Difference −22,268.43. `Item ▸` dropdown switches grids; `Search` toggles Number/Date; `Select All`,
 `Unselect All`, `Print`, `Save`, `Post` all work.
 
+## Upload Ledger File (dynamic data)
+The Voyager login (`loginoidc`) has an **Upload Ledger File** button. It opens a modal where you
+pick a Yardi **Bank Reconciliation Report (PDF)**; `js/ledger.js` parses it **client-side** with
+**pdf.js** (`vendor/pdfjs/`) and stores the result in `localStorage` (`yardiBankRecData`).
+
+- Sections map to grids: **Outstanding Checks + Cleared Checks → Checks**, **Cleared Deposits →
+  Deposits**, **Cleared Other Items → Other Items**.
+- Field map: `Number ← Tran#/Check#`, `Date ← Date`, `Memo ← Notes/Payee`, `Amount ← Amount`.
+- Every linked screen reads the latest stored data on load and re-renders — **Bank Reconcile**
+  (all three grids + Bank Account Name, G/L Balance, Balance Per Bank Statement, and the live
+  recomputed Deposits-in-Transit / Outstanding Checks / Reconciled balances / Difference / Item
+  Totals) and **Bank Rec Filter** (bank name, GL cutoff date, ending balance). A `storage` event
+  listener refreshes an already-open screen when a new file is uploaded.
+- Rows are inserted **unchecked** (data only). If no file is uploaded, the bundled sample data is shown.
+
 ## Notes / deviations (frontend-only demo)
 - Product wordmark tiles, the Voyager logo, app icons and the calendar icon are generated raster
   assets (so the original `<img src>` paths resolve). The PARAMARK logo is a generated PNG rather
