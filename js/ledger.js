@@ -116,8 +116,14 @@
         if (s) { section = s.sec; cleared = /cleared/i.test(t); notesX = null; continue; }
       }
 
-      // totals / boundaries -> end current section
-      if (hasAmt(t) || /^(Plus|Less|Total|Reconciled|Difference|Balance|Posted)/i.test(t)) { section = null; notesX = null; }
+      // Only a totals/summary line ends the section — and those ALWAYS carry a
+      // dollar amount (e.g. "Plus: Outstanding Deposits 60,486.75",
+      // "Less: Outstanding Checks 57,098.88", "Reconciled Bank Balance ...").
+      // The page-header block repeated on every page (Posted by: DBO, the report
+      // title, doc number, statement date, bank name) has NO amount, so it is
+      // ignored here and the section continues across the page break — that's
+      // what makes ALL rows on continuation pages get picked up.
+      if (hasAmt(t)) { section = null; notesX = null; }
     }
     return data;
   }
