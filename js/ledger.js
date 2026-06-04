@@ -57,8 +57,22 @@
     });
   }
 
+  // map any section-title line to one of our grids (generic — works for
+  // "Outstanding Deposits", "Cleared Deposits", "Outstanding Checks",
+  // "Cleared Checks", "Other Items", "Book/Bank Reconciling Items", …)
+  function sectionOf(t) {
+    if (/\bBook\s+Reconciling\s+Items?\b/i.test(t)) return { sec: 'book', type: 4 };
+    if (/\bBank\s+Reconciling\s+Items?\b/i.test(t)) return { sec: 'bankrec', type: 3 };
+    if (/\bOther\s+Items?\b/i.test(t)) return { sec: 'other', type: 5 };
+    if (/\bDeposits?\b/i.test(t)) return { sec: 'deposits', type: 2 };
+    if (/\bChecks?\b/i.test(t)) return { sec: 'checks', type: 1 };
+    return null;
+  }
+  var hasAmt = function (t) { return /-?\d[\d,]*\.\d{2}/.test(t); };
+
   function parseLines(lines) {
-    var data = { bankName: '', closingDay: '', glBalance: '', bankStmt: '', deposits: [], checks: [], other: [] };
+    var data = { bankName: '', closingDay: '', glBalance: '', bankStmt: '',
+                 deposits: [], checks: [], other: [], bankrec: [], book: [] };
     var section = null, cleared = false, notesX = null, m;
     var txt = function (l) { return l.items.map(function (i) { return i.str; }).join(' ').replace(/\s+/g, ' ').trim(); };
 
@@ -68,11 +82,12 @@
       // bank name = first name-like line near the top
       if (!data.bankName) {
         var cand = t.replace(/\s+\d{1,2}\/\d{1,2}\/\d{4}\s*$/, '').trim();
-        if (/^[A-Za-z][A-Za-z .,'&\/()-]{4,}$/.test(cand) &&
-            !/(Bank Reconciliation Report|Outstanding|Cleared|Posted by|Balance|Difference|Reconciled|Check|Amount|Notes|Payee|Tran|Date)/i.test(cand)) {
+        if (/^[A-Za-z][A-Za-z .,'&\/()-]{3,}$/.test(cand) &&
+            !/(Bank Reconciliation Report|Outstanding|Cleared|Posted|Balance|Difference|Reconciled|Check|Amount|Notes|Payee|Tran|Number|Deposit|Item)/i.test(cand)) {
           data.bankName = cand;
         }
       }
+      // summary figures
       if (m = t.match(/Balance Per Bank Statement(?:\s+as of\s+(\d{1,2}\/\d{1,2}\/\d{4}))?.*?(-?[\d,]+\.\d{2})/i)) {
         if (m[1]) data.closingDay = pad(m[1]); data.bankStmt = m[2];
       }
@@ -80,25 +95,29 @@
         if (m[1] && !data.closingDay) data.closingDay = pad(m[1]); data.glBalance = m[2];
       }
 
-      // section markers
-      if (/^Outstanding Checks$/i.test(t)) { section = 'checks'; cleared = false; notesX = null; continue; }
-      if (/^Cleared Checks$/i.test(t)) { section = 'checks'; cleared = true; notesX = null; continue; }
-      if (/^Cleared Deposits$/i.test(t)) { section = 'deposits'; cleared = true; notesX = null; continue; }
-      if (/^Cleared Other Items$/i.test(t)) { section = 'other'; cleared = true; notesX = null; continue; }
-      if (/^(Total Cleared|Less:|Reconciled|Difference|Cleared Items|Balance per GL|Balance Per Bank)/i.test(t)) { section = null; continue; }
-
-      // column header row -> capture Notes/Payee x (splits Tran# from Notes)
-      if (/\b(Payee|Notes)\b/i.test(t) && /\bAmount\b/i.test(t)) {
+      // column-header row (the word "Amount" + a column label, no currency value)
+      if (/\bAmount\b/i.test(t) && /\b(Date|Number|Payee|Notes)\b/i.test(t) && !hasAmt(t)) {
         var ph = l.items.filter(function (i) { return /^(Payee|Notes)$/i.test(i.str); })[0];
-        if (ph) notesX = ph.x;
+        notesX = ph ? ph.x : null;            // null => no notes column (e.g. deposits)
         continue;
       }
 
-      // data row
-      if (section && l.items.length >= 3 && DATE.test(l.items[0].str)) {
+      // data row (starts with a date, inside a section) — always consume so a
+      // section survives page-break header blocks / blank title dates
+      if (section && DATE.test(l.items[0].str)) {
         var rec = parseRow(l, notesX, cleared);
         if (rec && rec.amount) data[section].push(rec);
+        continue;
       }
+
+      // section title (no currency on the line)
+      if (!hasAmt(t)) {
+        var s = sectionOf(t);
+        if (s) { section = s.sec; cleared = /cleared/i.test(t); notesX = null; continue; }
+      }
+
+      // totals / boundaries -> end current section
+      if (hasAmt(t) || /^(Plus|Less|Total|Reconciled|Difference|Balance|Posted)/i.test(t)) { section = null; notesX = null; }
     }
     return data;
   }
@@ -177,11 +196,12 @@
     setText('BankName_Label', d.bankName);
     setText('ClosingDay_Label', d.closingDay);
     setText('GLBalance_Label', d.glBalance);
-    setText('AdjBank_Label', d.glBalance);   // Reconciled G/L = GL + book(0); recalc refines
     setText('BankStmt_Label', d.bankStmt);
-    buildGrid('grdReconcile', TYPE.deposits, d.deposits || []);
-    buildGrid('grdReconcile2', TYPE.checks, d.checks || []);
-    buildGrid('grdReconcile3', TYPE.other, d.other || []);
+    buildGrid('grdReconcile', 2, d.deposits || []);    // Deposits
+    buildGrid('grdReconcile2', 1, d.checks || []);     // Checks (outstanding + cleared)
+    buildGrid('grdReconcile3', 5, d.other || []);      // Other Items
+    buildGrid('grdReconcile4', 3, d.bankrec || []);    // Bank Reconciling Items
+    buildGrid('grdReconcile5', 4, d.book || []);       // Book Reconciling Items
     if (w.jQuery && jQuery.fn.datepicker) {
       try { jQuery('input.hasDatepicker').datepicker({ dateFormat: 'mm/dd/yy', showOn: 'focus' }); } catch (e) {}
     }
@@ -233,11 +253,15 @@
       status('Parsing "' + f.name + '"…', '');
       uploadBtn.disabled = true;
       parseFile(f).then(function (data) {
-        var nd = (data.deposits || []).length, nc = (data.checks || []).length, no = (data.other || []).length;
-        if (nd + nc + no === 0) throw new Error('No transactions found. Is this a Yardi Bank Reconciliation Report PDF?');
+        var nd = (data.deposits || []).length, nc = (data.checks || []).length, no = (data.other || []).length,
+            nbk = (data.book || []).length, nbr = (data.bankrec || []).length;
+        if (nd + nc + no + nbk + nbr === 0) throw new Error('No transactions found. Is this a Yardi Bank Reconciliation Report PDF?');
         store(data);
-        status('Success — inserted ' + nc + ' checks, ' + nd + ' deposits, ' + no + ' other item' +
-          (no === 1 ? '' : 's') + ' for "' + (data.bankName || 'bank account') + '". Click PROCEED to view.', 'ok');
+        var parts = [nc + ' check' + (nc === 1 ? '' : 's'), nd + ' deposit' + (nd === 1 ? '' : 's')];
+        if (no) parts.push(no + ' other item' + (no === 1 ? '' : 's'));
+        if (nbr) parts.push(nbr + ' bank reconciling item' + (nbr === 1 ? '' : 's'));
+        if (nbk) parts.push(nbk + ' book reconciling item' + (nbk === 1 ? '' : 's'));
+        status('Success — inserted ' + parts.join(', ') + ' for "' + (data.bankName || 'bank account') + '". Click PROCEED to view.', 'ok');
       }).catch(function (err) {
         status('Could not read the file: ' + (err && err.message ? err.message : err), 'err');
       }).then(function () { uploadBtn.disabled = false; });

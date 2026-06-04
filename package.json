@@ -3,7 +3,10 @@
   "version": "1.1.0",
   "description": "Frontend-only clone of Yardi Voyager 7S with a ledger-file upload that parses a Bank Reconciliation Report (PDF) and populates the Bank Reconcile screen dynamically.",
   "private": true,
-  "scripts": { "start": "node server.js", "serve": "node server.js" },
+  "scripts": {
+    "start": "node server.js",
+    "serve": "node server.js"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.2",
     "bootstrap": "^5.3.3",
